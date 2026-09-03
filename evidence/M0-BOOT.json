@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "M0-BOOT",
+  "milestone": 0,
+  "status": "tested",
+  "authority": {
+    "archiveSha256": "e0bd2434a6b5005eee5e038c25f294d7ac0d497a3880f463f74266b53fa6bd5b",
+    "executableSha256": "e2c33c73c42b14d56986e497ebcb38b7e431cddaec6fb143a647019c5c002b47",
+    "levelSha256": "efaae10c309b266b6ad0c27369b9a4e227ae9d62b9aff6d5f8e076a535e83199"
+  },
+  "configId": "m0-reference-v1",
+  "experiment": "Perform two cold, read-only ZIP-mounted DOSBox-X boots with the empty input tape and reduce each log through the exact start marker.",
+  "controls": ["Same verified archive", "Same verified emulator executable", "Same configuration template", "No save state", "Fixed guest date/time", "No guest input", "Marker-driven stop"],
+  "observations": [
+    { "status": "tested", "finding": "Both boots execute TOMB.EXE and its archive-contained DOS4GW.EXE support program." },
+    { "status": "tested", "finding": "Both boots reach the same VESA mode 0x69 reset and post-reset 640x480 surface event sequence." },
+    { "status": "tested", "finding": "The two canonical reduced traces are byte-identical with SHA-256 8b7b423a4a592657926429d8962564afb32a69ed59579dcc5bd6d7e9816f55fe." },
+    { "status": "implementation-specific", "finding": "DOSBox-X applies a 4:3 surface policy; emulator timing and rasterization are not original-hardware facts." }
+  ],
+  "conclusion": "The frozen cold-boot procedure is repeatable through m0-boot-complete-v1.",
+  "limits": ["Host audio was muted", "Game tick rate remains uncertain", "The concrete full demo-completion trace signature is deferred", "No LEVEL2.PHD semantic analysis was performed"],
+  "rawArtifacts": [".work/reference/m0/run-1/boot.log", ".work/reference/m0/run-2/boot.log", ".work/traces/m0/boot-run-1.reduced.json", ".work/traces/m0/boot-run-2.reduced.json"],
+  "downstreamTests": ["npm run gate:m0 repeatable reduced boot trace check"]
+}

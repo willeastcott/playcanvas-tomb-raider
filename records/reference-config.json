@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "id": "m0-reference-v1",
+  "authority": {
+    "archive": { "path": ".work/original/TR1PCdemo1.zip", "bytes": 2194574, "sha256": "e0bd2434a6b5005eee5e038c25f294d7ac0d497a3880f463f74266b53fa6bd5b" },
+    "executable": { "entry": "tombraid/TOMB.EXE", "bytes": 442247, "sha256": "e2c33c73c42b14d56986e497ebcb38b7e431cddaec6fb143a647019c5c002b47" },
+    "level": { "entry": "tombraid/DATA/LEVEL2.PHD", "bytes": 2873406, "sha256": "efaae10c309b266b6ad0c27369b9a4e227ae9d62b9aff6d5f8e076a535e83199" }
+  },
+  "emulator": {
+    "name": "DOSBox-X",
+    "version": "2026.07.02",
+    "commit": "6fb8c07",
+    "build": "MinGW SDL2 64-bit, debugger enabled",
+    "license": "GPL-2.0-or-later",
+    "asset": "dosbox-x-mingw64-2026.07.02-portable.zip",
+    "assetBytes": 46173080,
+    "assetSha256": "4ac3ebf140c523298f70d48c62f071d3e8cb2ca4e3dbe37baa3681d896b0b79a",
+    "executableBytes": 25551360,
+    "executableSha256": "5f54ec0a5657419c133f88f7ce3b0c9b431405a9ef450e099af7c0bc1a837dc4"
+  },
+  "instrumentation": {
+    "configTemplate": "reference/dosbox-x-m0.conf.template",
+    "bootHarness": "tools/reference/run-boot-smoke.ps1",
+    "reducer": "tools/m0/reduce-boot-log.ts@1",
+    "rawRoot": ".work/reference/m0",
+    "traceRoot": ".work/traces/m0",
+    "logCategories": ["machine", "filesystem", "ioctl", "exec"],
+    "debuggerPolicy": "Debugger-enabled build pinned; debugger remains inactive for M0 boot smoke. Later use must be bounded by a recorded experiment."
+  },
+  "host": {
+    "os": "Microsoft Windows 11 Enterprise 10.0.26100 build 26100",
+    "architecture": "x64",
+    "cpu": "Intel(R) Core(TM) Ultra 9 285H, 16 logical processors",
+    "timezone": "Europe/London"
+  },
+  "guest": {
+    "machine": "S3 Trio64 VESA-compatible SVGA",
+    "dosVersion": "6.22",
+    "memoryMiB": 16,
+    "cpuType": "pentium_slow",
+    "cpuCore": "normal interpreter",
+    "cycles": "fixed 100000",
+    "xms": true,
+    "ems": true,
+    "umb": true
+  },
+  "graphics": {
+    "guestMode": "VESA mode 0x69 as reported by the frozen DOSBox-X log",
+    "logicalResolution": "640x480",
+    "displayAspect": "4:3",
+    "viewport": "640x480 centered, no crop or letterbox inside the logical surface",
+    "hostWindow": "640x480 configured client output",
+    "output": "surface",
+    "scaler": "none",
+    "frameskip": 0,
+    "vsync": "off"
+  },
+  "audio": {
+    "device": "Sound Blaster 16 with Nuked OPL emulation",
+    "address": "0x220",
+    "irq": 7,
+    "dma": 1,
+    "highDma": 5,
+    "mixerRateHz": 49716,
+    "sampleAccurate": true,
+    "hostOutput": "muted for M0 boot repeatability",
+    "midi": "disabled",
+    "gus": "disabled"
+  },
+  "input": {
+    "bindings": {
+      "ArrowUp": "run-forward",
+      "ArrowDown": "small-jump-back",
+      "ArrowLeft": "turn-left",
+      "ArrowRight": "turn-right",
+      "Shift": "walk",
+      "Alt": "jump",
+      "Control": "action",
+      "Space": "draw-weapon",
+      "Escape": "inventory-pause",
+      "F1": "toggle-resolution",
+      "F2": "reduce-viewport",
+      "F3": "enlarge-viewport"
+    },
+    "sampling": "Digital PC/AT make/break state; one snapshot per future tested game tick. Tick rate remains uncertain in M0 and no wall-clock key repeat is accepted as evidence.",
+    "bootTapeId": "m0-cold-boot-no-input-v1",
+    "joystick": "disabled"
+  },
+  "timing": {
+    "wallClockPolicy": "Cold boot is marker-driven, not duration-driven; harness timeout is only a 30-second failure bound.",
+    "guestClock": "1996-01-01 12:00:00, host synchronization disabled",
+    "tickAssumption": "uncertain: DOSBox-X title reports approximately 29 FPS during the observed start surface; this is not promoted to a game tick rate.",
+    "pausePolicy": "uncertain and deferred until a controlled executable experiment"
+  },
+  "deterministicStart": {
+    "kind": "cold emulator process",
+    "archiveMount": "authoritative ZIP mounted C: read-only, then DOSBox-X secure mode",
+    "saveState": "none",
+    "guestInput": "all actions false; empty M0 boot tape",
+    "guestDate": "1996-01-01",
+    "guestTime": "12:00:00",
+    "workingDirectory": "C:\\TOMBRAID",
+    "command": "TOMB.EXE"
+  },
+  "markers": {
+    "demoStart": {
+      "id": "m0-demo-start-v1",
+      "status": "tested",
+      "definition": "First 640x480 surface submission after DOS4GW execution and the guest VESA mode 0x69 reset.",
+      "detector": ["exec:tomb", "exec:dos4gw", "guest-video-mode:0x69-reset", "surface:640x480-post-reset"]
+    },
+    "bootComplete": {
+      "id": "m0-boot-complete-v1",
+      "status": "tested",
+      "definition": "The m0-demo-start-v1 event has been reduced from the frozen emulator log; the harness may stop without applying guest input."
+    },
+    "demoComplete": {
+      "id": "m0-demo-complete-v1",
+      "status": "uncertain",
+      "definition": "First complete 640x480 frame after the level-completion transition has replaced the active level presentation and action input is no longer consumed by level play.",
+      "detector": ["level-completion-transition-observed", "active-level-presentation:false", "action-input-consumed-by-level:false"],
+      "freezeRule": "This operational boundary is frozen now; its concrete trace signature must be tested on the completion path before candidate gameplay acceptance."
+    }
+  },
+  "limitations": [
+    "DOSBox-X timing and rasterization are implementation-specific and are not original-hardware ground truth.",
+    "M0 does not determine the game tick rate, pause policy, or the concrete completion-marker trace signature.",
+    "Host audio is muted during the boot smoke; guest audio hardware configuration is frozen but waveform output is not tested.",
+    "No LEVEL2.PHD semantic analysis or broad executable reverse engineering was performed."
+  ]
+}

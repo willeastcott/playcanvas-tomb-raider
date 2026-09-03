@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://clean-room.invalid/schemas/evidence.schema.json",
+  "title": "Compact evidence record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "id", "milestone", "status", "authority", "configId", "experiment", "controls", "observations", "conclusion", "limits", "rawArtifacts", "downstreamTests"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "id": { "type": "string", "pattern": "^M0-[A-Z0-9-]+$" },
+    "milestone": { "const": 0 },
+    "status": { "enum": ["observed", "tested", "inferred", "uncertain", "implementation-specific"] },
+    "authority": {
+      "type": "object",
+      "additionalProperties": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+      "required": ["archiveSha256", "executableSha256", "levelSha256"]
+    },
+    "configId": { "const": "m0-reference-v1" },
+    "experiment": { "type": "string", "minLength": 1 },
+    "controls": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "observations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["status", "finding"],
+        "properties": {
+          "status": { "enum": ["observed", "tested", "inferred", "uncertain", "implementation-specific"] },
+          "finding": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "conclusion": { "type": "string", "minLength": 1 },
+    "limits": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "rawArtifacts": { "type": "array", "items": { "type": "string", "pattern": "^\\.work/" } },
+    "downstreamTests": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+  }
+}

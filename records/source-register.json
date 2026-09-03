@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "id": "archive-readme-1996",
+      "kind": "archive-internal",
+      "locator": "tombraid/README.TXT inside the authoritative archive",
+      "accessedOn": "2026-09-02",
+      "permitted": true,
+      "status": "observed",
+      "contribution": "Demo identity and scope, complete-unaltered distribution statement, VESA requirement, and the twelve default keyboard controls recorded in the reference configuration. It does not approve a production host."
+    },
+    {
+      "id": "dosbox-x-release-2026-07-02",
+      "kind": "official-release",
+      "locator": "https://github.com/joncampbell123/dosbox-x/releases/tag/dosbox-x-v2026.07.02",
+      "accessedOn": "2026-09-02",
+      "permitted": true,
+      "status": "tested",
+      "contribution": "Pinned version, commit, Windows portable asset name, size, and release-published SHA-256."
+    },
+    {
+      "id": "dosbox-x-license",
+      "kind": "official-documentation",
+      "locator": "COPYING in dosbox-x-mingw64-2026.07.02-portable.zip",
+      "accessedOn": "2026-09-02",
+      "permitted": true,
+      "status": "observed",
+      "contribution": "GPL-2.0-or-later licensing text for the selected local-only emulator build."
+    },
+    {
+      "id": "dosbox-x-debugger-doc",
+      "kind": "official-documentation",
+      "locator": "https://github.com/joncampbell123/dosbox-x/blob/dosbox-x-v2026.07.02/README.debugger",
+      "accessedOn": "2026-09-02",
+      "permitted": true,
+      "status": "implementation-specific",
+      "contribution": "Debugger availability, Windows console behaviour, breakpoints, stepping, register/memory views, and execution logging capabilities."
+    },
+    {
+      "id": "dosbox-x-zip-mount-doc",
+      "kind": "official-documentation",
+      "locator": "https://dosbox-x.com/wiki/DOSBox%E2%80%90X%E2%80%99s-Feature-Highlights",
+      "accessedOn": "2026-09-02",
+      "permitted": true,
+      "status": "tested",
+      "contribution": "Direct ZIP-as-drive support, used to run the complete unaltered archive without extracting support files."
+    },
+    {
+      "id": "dosbox-x-windows-debugger-issue-6054",
+      "kind": "official-issue",
+      "locator": "https://github.com/joncampbell123/dosbox-x/issues/6054",
+      "accessedOn": "2026-09-02",
+      "permitted": true,
+      "status": "uncertain",
+      "contribution": "Historical Windows debugger-console launch caveat considered as a tooling risk; it contributes no game finding."
+    },
+    {
+      "id": "npm-typescript-7-0-2",
+      "kind": "package-registry",
+      "locator": "https://registry.npmjs.org/typescript/-/typescript-7.0.2.tgz",
+      "accessedOn": "2026-09-02",
+      "permitted": true,
+      "status": "implementation-specific",
+      "contribution": "Pinned strict TypeScript compiler package and Apache-2.0 licence metadata."
+    },
+    {
+      "id": "npm-types-node-24-13-3",
+      "kind": "package-registry",
+      "locator": "https://registry.npmjs.org/@types/node/-/node-24.13.3.tgz",
+      "accessedOn": "2026-09-02",
+      "permitted": true,
+      "status": "implementation-specific",
+      "contribution": "Pinned Node 24 compile-time declarations and MIT licence metadata."
+    }
+  ]
+}

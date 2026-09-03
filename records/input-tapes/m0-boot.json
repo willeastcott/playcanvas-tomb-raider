@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "m0-cold-boot-no-input-v1",
+  "configId": "m0-reference-v1",
+  "purpose": "Cold boot from DOSBox-X shell launch through the first active-level 640x480 surface marker.",
+  "sampling": "One digital make/break snapshot per future tested game tick; Milestone 0 applies no guest key events, so every action remains false.",
+  "initialState": {
+    "run-forward": false,
+    "small-jump-back": false,
+    "turn-left": false,
+    "turn-right": false,
+    "walk": false,
+    "jump": false,
+    "action": false,
+    "draw-weapon": false,
+    "inventory-pause": false,
+    "toggle-resolution": false,
+    "reduce-viewport": false,
+    "enlarge-viewport": false
+  },
+  "events": [],
+  "stopMarker": "m0-boot-complete-v1"
+}

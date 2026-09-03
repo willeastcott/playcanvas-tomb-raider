@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://clean-room.invalid/schemas/reference-config.schema.json",
+  "title": "Frozen reference configuration",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schemaVersion", "id", "authority", "emulator", "instrumentation", "host", "guest", "graphics", "audio", "input", "timing", "deterministicStart", "markers", "limitations"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "id": { "const": "m0-reference-v1" },
+    "authority": { "type": "object", "required": ["archive", "executable", "level"] },
+    "emulator": { "type": "object", "required": ["name", "version", "commit", "build", "license", "assetSha256", "executableSha256"] },
+    "instrumentation": { "type": "object", "required": ["configTemplate", "bootHarness", "reducer", "rawRoot"] },
+    "host": { "type": "object", "required": ["os", "architecture", "cpu", "timezone"] },
+    "guest": { "type": "object", "required": ["machine", "dosVersion", "memoryMiB", "cpuType", "cycles"] },
+    "graphics": { "type": "object", "required": ["guestMode", "logicalResolution", "displayAspect", "viewport", "output", "scaler"] },
+    "audio": { "type": "object", "required": ["device", "address", "irq", "dma", "highDma", "mixerRateHz", "hostOutput"] },
+    "input": { "type": "object", "required": ["bindings", "sampling", "bootTapeId"] },
+    "timing": { "type": "object", "required": ["wallClockPolicy", "guestClock", "tickAssumption"] },
+    "deterministicStart": { "type": "object", "required": ["kind", "archiveMount", "saveState", "guestInput", "guestDate", "guestTime"] },
+    "markers": { "type": "object", "required": ["demoStart", "bootComplete", "demoComplete"] },
+    "limitations": { "type": "array", "minItems": 1, "items": { "type": "string" } }
+  }
+}

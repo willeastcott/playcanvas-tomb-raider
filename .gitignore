@@ -1,0 +1,22 @@
+.work/
+
+# Proprietary or derived game material must stay in .work/; these are safeguards.
+/original/
+/extracted/
+/emulator/
+/reverse-engineering/
+/reference-captures/
+/generated-comparisons/
+/downloads/
+
+# Generated build, test, package, and platform output.
+/dist/
+/coverage/
+/node_modules/
+/.cache/
+/.vite/
+/.playwright/
+*.tsbuildinfo
+*.log
+.DS_Store
+Thumbs.db

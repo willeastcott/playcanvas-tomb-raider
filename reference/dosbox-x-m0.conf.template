@@ -1,0 +1,94 @@
+[sdl]
+fullscreen=false
+fullresolution=640x480
+windowresolution=640x480
+output=surface
+autolock=false
+showmenu=false
+showbasic=true
+showdetails=true
+priority=normal,normal
+mapperfile={{MAPPER_FILE}}
+usescancodes=true
+
+[dosbox]
+machine=svga_s3
+captures={{CAPTURE_DIR}}
+memsize=16
+synchronize time=false
+
+[log]
+logfile={{LOG_FILE}}
+show=true
+show console=false
+machine=true
+filesystem=true
+ioctl=true
+exec=true
+
+[render]
+frameskip=0
+aspect=true
+aspect_ratio=4:3
+scaler=none
+vsyncmode=off
+
+[cpu]
+core=normal
+cputype=pentium_slow
+cycles=fixed 100000
+cycleup=0
+cycledown=0
+
+[mixer]
+nosound=true
+sample accurate=true
+rate=49716
+blocksize=1024
+prebuffer=0
+
+[midi]
+mpu401=none
+mididevice=none
+
+[sblaster]
+sbtype=sb16
+sbbase=220
+irq=7
+dma=1
+hdma=5
+sbmixer=true
+oplmode=nuked
+oplrate=49716
+recording source=silence
+
+[gus]
+gus=false
+
+[speaker]
+pcspeaker=false
+tandy=off
+disney=false
+
+[joystick]
+joysticktype=none
+timed=false
+
+[dos]
+xms=true
+ems=true
+umb=true
+ver=6.22
+lfn=false
+keyboardlayout=us
+automount=false
+
+[autoexec]
+mount c "{{ARCHIVE_PATH}}" -ro
+date 01-01-1996
+time 12:00:00
+config -securemode
+c:
+cd tombraid
+tomb.exe
+exit
